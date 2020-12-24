@@ -50,14 +50,12 @@ void Draw()
             {
                 bool print = false;
                 for(int k = 0; k<nTail; k++)
-                {
-                    
+                {                    
                     if(tailX[k] == j && tailY[k] == i)
                     {
                         cout << "◎";
                         print = true;
-                    }
-                   
+                    }                   
                 }
                 if(!print)
                     cout << " ";              
@@ -170,6 +168,5 @@ int main()
         Logic();
         usleep(70000);
     }
-
     return 0;
 }

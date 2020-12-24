@@ -1,1 +1,2 @@
-# snake-game-cpp
+# Snake-Game-cpp
+

@@ -1,8 +1,6 @@
 #include <iostream>
-//#include "curses.h" 
 #include <conio.h>
-//#include "unistd.h"
-//#include <ncurses.h>
+
 using namespace std;
 bool gameOver;
 const int width = 20;
@@ -35,7 +33,7 @@ void Draw()
 {
     system("clear"); //for Windows system("cls");
     for (int i = 0; i < width + 2; i++)
-        cout << "#";
+        cout << "▆";
     cout << endl;
 
     for (int i = 0; i < width; i++)
@@ -43,11 +41,11 @@ void Draw()
         for (int j = 0; j < width; j++)
         {
             if (j == 0)
-                cout << "#";
+                cout << "▉";
             if (i == y && j == x)
-                cout << "O";
+                cout << "◯";
             else if (i == fruitY && j == fruitX)
-                cout << "F";
+                cout << "◉";
             else
             {
                 bool print = false;
@@ -56,35 +54,30 @@ void Draw()
                     
                     if(tailX[k] == j && tailY[k] == i)
                     {
-                        cout << "o";
+                        cout << "◎";
                         print = true;
                     }
                    
                 }
                 if(!print)
-                    cout << " ";
-                
-                
-
-            }
-                
-
+                    cout << " ";              
+            }                
             if (j == width - 1)
-                cout << "#";
+                cout << "▉";
         }
         cout << endl;
     }
 
     for (int i = 0; i < width + 2; i++)
-        cout << "#";
+        cout << "▆";
     cout << endl;
-    cout << "SCore:" << score << endl;
+    cout << "Score:" << score << endl;
 }
 void Input()
 {
-    if (_kbhit())
-    {
-        switch(getch())
+    if (kbhit())
+    {        
+        switch(getche())
         {
         case 'a':
             dir = LEFT;
@@ -100,6 +93,7 @@ void Input()
             break;
         case 'x':
             gameOver = true;
+            cout << "\n\nGame Over! Score:" << score << endl;
             break;
         }
     }
@@ -141,17 +135,17 @@ void Logic()
     default:
         break;
     }
-    if (x > width || x < 0 || y > height || y < 0)
-        gameOver = true;
-
+  
     if( x >= width) x = 0; else if (x<0) x = width -1;
     if( y >= width) y = 0; else if (y<0) y = height -1;
 
     for(int i = 0; i <nTail; i++)
         if (tailX[i] == x && tailY[i] == y)
+        {
             gameOver = true;
-
-
+            cout << "\n\nGame Over! Score:" << score << endl;
+        }
+            
 
     if ( x == fruitX && y == fruitY)
     {        
@@ -164,7 +158,9 @@ void Logic()
 
 int main()
 {
-    printf("Let's start a new simple Snake Game\n");
+    printf("\n\n\n");
+    printf("Let's start a new simple Snake Game");
+    printf("\n\n\n");
 
     Setup();
     while (!gameOver)
@@ -172,7 +168,7 @@ int main()
         Draw();
         Input();
         Logic();
-        sleep(10);
+        usleep(70000);
     }
 
     return 0;
